@@ -1,0 +1,56 @@
+package org.sylwia.customer;
+
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
+import java.util.regex.Pattern;
+
+@Service
+@AllArgsConstructor
+public class CustomerService {
+
+    private final CustomerRepository customerRepository;
+    private final RestTemplate restTemplate;
+
+    public void registerCustomer(CustomerRegistrationRequest customerRegistrationRequest) {
+        String email = customerRegistrationRequest.email();
+        checkIfEmailValid(email);
+        checkIfEmailTaken(email);
+
+        Customer customer = Customer.builder()
+                .firstName(customerRegistrationRequest.firstName())
+                .lastName(customerRegistrationRequest.lastName())
+                .email(customerRegistrationRequest.email())
+                .build();
+
+        customerRepository.saveAndFlush(customer);
+
+        FraudCheckHistoryResponse fraudCheckHistoryResponse = restTemplate.getForObject(
+                "http://FRAUD/api/v1/fraud-check/{customerId}",
+                FraudCheckHistoryResponse.class,
+                customer.getId()
+        );
+        assert fraudCheckHistoryResponse != null;
+        if (fraudCheckHistoryResponse.fraudster()) {
+            throw new IllegalStateException("fraudster");
+        }
+    }
+
+    private void checkIfEmailTaken(String email) {
+        Optional<Customer> optionalStudent = customerRepository.findCustomerByEmail(email);
+        if (optionalStudent.isPresent()) {
+            throw new IllegalStateException("Email taken");
+        }
+    }
+
+    private void checkIfEmailValid(String email) {
+        String regex = "^(.+)@(.+)$";
+
+        Pattern pattern = Pattern.compile(regex);
+        if (!pattern.matcher(email).matches()) {
+            throw new IllegalStateException("Email not valid");
+        }
+    }
+}
