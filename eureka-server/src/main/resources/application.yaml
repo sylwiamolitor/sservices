@@ -8,5 +8,5 @@ eureka:
   client:
     fetch-registry: false
     register-with-eureka: false
-    instance:
-      preferIpAddress: true
+  instance:
+    preferIpAddress: true
