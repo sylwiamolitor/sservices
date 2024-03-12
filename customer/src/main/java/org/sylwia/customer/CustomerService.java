@@ -1,8 +1,10 @@
 package org.sylwia.customer;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.sylwia.clients.fraud.FraudCheckHistoryResponse;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -12,6 +14,8 @@ import java.util.regex.Pattern;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
+    @Autowired
     private final RestTemplate restTemplate;
 
     public void registerCustomer(CustomerRegistrationRequest customerRegistrationRequest) {

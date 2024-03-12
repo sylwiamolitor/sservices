@@ -16,7 +16,7 @@ An application using Microservices, Service Discovery, Load Balancer, Spring Clo
 This project was made to practice microservices.
 
 ## Technologies Used
-Java, Eureka server, Docker, Spring.
+Java, Eureka server, Docker, Spring, OpenAPI.
 
 
 ## Features
@@ -27,6 +27,7 @@ Java, Eureka server, Docker, Spring.
 
 ## Screenshots
 ![img.png](img.png)
+![img_1.png](img_1.png)
 
 ## Setup
 To start the application use command `docker compose up`, start EurekaServerApplication, CustomerApplication and FraudApplication - in that order.
@@ -36,7 +37,9 @@ To start the application use command `docker compose up`, start EurekaServerAppl
 Application can be used as a simple model of microservices.
 POST request on http://localhost:8080/api/v1/customers - example: ![img.png](img.png)
 can be used to create a customer. Then http://localhost:8081/api/v1/fraud-check/{customerId} can be used to check if customer is a fraud.
-
+OpenAPI option:
+- http://localhost:8080/swagger-ui/index.html
+- http://localhost:8081/swagger-ui/index.html
 ## Project Status
 In progress.
 
