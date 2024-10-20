@@ -7,9 +7,9 @@ spring:
     name: customer
   datasource:
     driverClassName: org.postgresql.Driver
-    username: sylwia
-    url: jdbc:postgresql://localhost:5432/customer
-    password: password
+    username: ${POSTGRES_USERNAME}
+    url: ${DATABASE_URL}/customer
+    password: ${DATABASE_PASSWORD}
   jpa:
     properties:
       hibernate:
@@ -24,6 +24,6 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URL}
     fetch-registry: true
     register-with-eureka: true

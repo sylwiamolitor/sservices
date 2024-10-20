@@ -30,6 +30,8 @@ Java, Eureka server, Docker, Spring, OpenAPI.
 ![img_1.png](img_1.png)
 
 ## Setup
+Define global environment variables called `DATABASE_URL`, `POSTGRES_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_NAME` and `EUREKA_URL`.
+Database credentials are needed for the application to function.
 To start the application use command `docker compose up`, start EurekaServerApplication, CustomerApplication and FraudApplication - in that order.
 
 
